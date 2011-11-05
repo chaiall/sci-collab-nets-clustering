@@ -1,4 +1,5 @@
 library('Matrix')
+ library('irlba')
 
 tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
 {
@@ -27,3 +28,5 @@ max_num = max(data);
 tic()
 A = sparseMatrix(i=c(data[,1],data[,2]),j=c(data[,2],data[,1]),x=c(data[,3],data[,3]))
 toc()
+
+S = irlba(A,nu=5,nv=5)
