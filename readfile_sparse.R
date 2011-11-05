@@ -1,11 +1,29 @@
-data<-read.table("out2.txt");
+library('Matrix')
+
+tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
+{
+   type <- match.arg(type)
+   assign(".type", type, envir=baseenv())
+   if(gcFirst) gc(FALSE)
+   tic <- proc.time()[type]         
+   assign(".tic", tic, envir=baseenv())
+   invisible(tic)
+}
+
+toc <- function()
+{
+   type <- get(".type", envir=baseenv())
+   toc <- proc.time()[type]
+   tic <- get(".tic", envir=baseenv())
+   print(toc - tic)
+   invisible(toc)
+}
+
+data<-read.table("out3.txt");
 line_num = dim(data)[1];
 
-max_num = max(data);
 #max_num:1030712
-result <- matrix(data=0,max_num,max_num)
-for (i in 1:line_num) {
-	#data[i,1]; data[i,2]; data[i,3];
-	result[data[i,1],data[i,2]] <- result[data[i,1],data[i,2]] + data[i,3];
-	result[data[i,2],data[i,1]] <- result[data[i,2],data[i,1]] + data[i,3];
-}
+max_num = max(data);
+tic()
+A = sparseMatrix(i=c(data[,1],data[,2]),j=c(data[,2],data[,1]),x=c(data[,3],data[,3]))
+toc()
