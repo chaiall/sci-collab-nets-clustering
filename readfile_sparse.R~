@@ -20,8 +20,7 @@ toc <- function()
    invisible(toc)
 }
 
-data<-read.table("out3.txt");
-#Jie:#data<-read.table("/home/jie/work/out3.txt");
+data<-read.table("/home/jie/work/out3.txt");
 line_num = dim(data)[1];
 
 #max_num:1030712
