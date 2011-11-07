@@ -1,6 +1,5 @@
 library('Matrix')
  library('irlba')
-#jie add this one
 
 tic <- function(gcFirst = TRUE, type=c("elapsed", "user.self", "sys.self"))
 {
