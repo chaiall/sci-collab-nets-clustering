@@ -21,7 +21,7 @@ toc <- function()
 }
 
 data<-read.table('out3.txt');
-authors<-read.table('list.txt', sep='\n')
+authors<-read.table('authors.txt', sep='\n')
 authors<-as.vector(authors$V1)
 
 #Jie:#data<-read.table("/home/jie/work/out3.txt");
