@@ -58,20 +58,3 @@ toc()
 
 B=S$u
 
-for( c in 2:5)
-{
-    K=kmeans(B,centers=c)
-    print(K$size)
-}
-
-#It does not work very well
-#Possible reasons:
-# - I may be using a bad representation of authors, I may need to use more singular
-#values or it is just wrong to use the vectors u
-# - k-means does not work in big graphs
-# - Euclidean distance does not make sense
-
-#[1]      27 1030685
-#[1]      13 1030686      13
-#[1]      12       6       8 1030686
-#[1]       5 1030686      11       5       5
