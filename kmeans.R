@@ -1,30 +1,35 @@
 #option 1: read the whole matrix
 #source('readfile_sparse.R')
-library('flexclust')
+#source('readauthors.R')
 
 #option 2: read subset matrix
-data<-read.table('subset.txt');
-n=max(data[,1:2])
-A = matrix(0,n,n);
-for( i in 1:n )
-    A[data[i,1],data[i,2]]=data[i,3]
-A = A+t(A)
+#source('read-subset.R')
+#source('readauthors.R')
 
-#remove the lines where all elements are 0
-ind=c(1:n)[A%*%rep(1,n)>0]
-B = A[ind,ind]
+#option 3: read cs umass matrix
+source('read-csumass.R')
+source('readauthors.R')
 
+#additional libraries
+library('flexclust')
 
-for( c in 2:5)
+print(1)
+
+n=nrow(A)
+for( c in 2:5 )
 {
 #    K=kmeans(B,c)
-#    print(K$size)
-    K=kcca(B,c,family=kccaFamily('angle'))
+    K=kcca(A,c,family=kccaFamily('kmedians'))
 }
-sort(authors[ind[c(1:718)[clusters(K)==1]]])
+c=3
+K=kcca(A,c,family=kccaFamily('angle'))
+sort(authors[ind[c(1:n)[clusters(K)==1]]])
 #kcca
-#kmedians: nop
-#angle: gets clusters approximately of the same size
+#kmedians: 1 big cluster and other small clusters
+#angle: jim and don in different clusters!
+#jaccard: 1 big  cluster
+#ejaccard: jim and don in diff clusters
+
 
 
 
