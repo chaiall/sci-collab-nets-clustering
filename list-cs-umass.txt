@@ -1,0 +1,48 @@
+Adrion,Richards
+Allan,James
+Barrington,David
+Barto,Andrew
+Berger,Emery
+Clarke,Lori
+Corner,Mark
+Croft,W. Bruce
+Diao,Yanlei
+Fu,Kevin
+Ganesan,Deepak
+Graham,Robert M.
+Grupen,Roderic
+Haghighi,Aria
+Hanson,Allen
+Immerman,Neil
+Jensen,David
+Kurose,James
+Learned-Miller,Erik
+Lehnert,Wendy
+Lesser,Victor
+Levine,Brian Neil
+Mahadevan,Sridhar
+Manmatha,R
+Marlin,Benjamin M.
+McCallum,Andrew
+McGregor,Andrew
+Miklau,Gerome
+Moll,Robert
+Moss,Eliot
+Osterweil,Leon
+Rissland,Edwina
+Rosenberg,Arnold
+Shenoy,Prashant
+Siegelmann,Hava
+Sitaraman,Ramesh
+Smaragdakis,Yannis
+Smith,David A.
+Towsley,Donald
+Venkataramani,Arun
+Verts,William
+Wallach,Hanna
+Wang 0003,Rui
+Weems,Charles
+Wileden,Jack
+Wogrin,Conrad
+Woolf,Beverly
+Zilberstein,Shlomo
