@@ -3,11 +3,11 @@
 #source('read-authors.R')
 
 #option 2: read subset matrix
-source('read-subset.R')
+#source('read-subset.R')
 #source('read-authors.R')
 
 #option 3: read cs umass matrix
-#source('read-csumass.R')
+source('read-csumass.R')
 #source('read-authors.R')
 
 #additional libraries
@@ -37,14 +37,19 @@ r=10
 E=matrix(rnorm(n*r,0,1),n,r)
 B = A%*%E;
 
+source('modularity.R')
+
 computeClusters <- function(A,method,c)
 {
     K=kcca(A,c,family=kccaFamily(method))
     showGraph(A,g,l,clusters(K),method)
+
+    return(clusters(K))
 }
 
-computeClusters(B,'kmedians',2)
-
+#option method: kmeans kmedians angle jaccard ejaccard
+K<-computeClusters(B,method='kmedians',2)
+print(modularity(A,K))
 
 
 #kcca
