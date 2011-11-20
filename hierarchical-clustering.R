@@ -35,22 +35,29 @@ D= diag(K)
 n = nrow(A)
 m = sum(K)/2;
 
-#edge betweenness algorithm
-#TODO: if we use this, we probably want to calculate betweenness in an
-#approximate way and also to limit the number of splits
-ebc <- edge.betweenness.community(g)
-
 c=2
 
-computeClusters <- function(A,c)
+computeClusters <- function(A,distance,c,mthd)
 {
-    memb = community.to.membership(g,ebc$merges,n-c)$membership + 1
+    hc <- hclust(as.dist(distance),method=mthd)
+    memb = cutree(hc,c)
 
     print(modularity(A,memb))
-    showGraph(A,g,l,memb,'Edge Betweenness')
+    showGraph(A,g,l,memb,'Hierarchical Clustering')
 }
 
-computeClusters(A,c)
+#option 1
+#distance <- -(A%*%A);
 
+#option 2
+#simil <- A%*%A;
+#a=min(simil[simil>0])
+#simil <- simil + a*1e-3
+#distance <- 1/simil
 
+#option 3
+distance <- -A;
 
+#methods: "ward", "single", "complete", "average", "mcquitty",
+#"median" or "centroid"
+computeClusters(A,distance,c,'ward')

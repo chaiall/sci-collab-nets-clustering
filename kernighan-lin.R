@@ -38,10 +38,8 @@ m = sum(K)/2;
 
 #modularity matrix
 B=A-1/(2*m)*K%*%t(K)
-evv = eigen(B,symmetric=TRUE)
 #print(modularity(A,cl$cluster))
 
-#eigenvector corresp. largest eigenvalue
 c=2
 
 approxModularityMax <- function (A,L)

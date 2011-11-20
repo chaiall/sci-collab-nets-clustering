@@ -21,7 +21,7 @@ gplot(g,layout=l,main="UMASS CS Collaboration Graph 2011")
 
 #option 0: A is weighted (default, comment make-unweighted.R)
 #option 1: A is unweighted (binary)
-source('make-unweighted.R')
+#source('make-unweighted.R')
 
 #option 2: A is normalized
 #D=rowSums(A)
