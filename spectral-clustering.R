@@ -21,7 +21,7 @@ gplot(g,layout=l,main="UMASS CS Collaboration Graph 2011")
 
 #option 0: A is weighted (default, comment make-unweighted.R)
 #option 1: A is unweighted (binary)
-#source('make-unweighted.R')
+source('make-unweighted.R')
 
 #option 2: A is normalized
 #D=rowSums(A)
@@ -36,8 +36,8 @@ D= diag(K)
 n = nrow(A)
 
 #graph laplacian
-#L = sqrt(Dinv) %*% A %*% sqrt(Dinv)
-L = D - A
+L = diag(1,n)-sqrt(Dinv) %*% A %*% sqrt(Dinv)
+#L = D - A
 
 evv = eigen(L,symmetric=TRUE)
 
@@ -49,9 +49,15 @@ computeClusters <- function(A,v,c)
     cl <- kmeans(v,c)
     print(modularity(A,cl$cluster))
     showGraph(A,g,l,cl$cluster,'Spectral Clustering')
+    xr=range(v[,1])
+    yr=range(v[,2])
+   plot(v[which(cl$cluster==1),1],v[which(cl$cluster==1),2],col=2,xlim=xr,ylim=yr)
+   points(v[which(cl$cluster==2),1],v[which(cl$cluster==2),2],col=3)
 }
 
-computeClusters(A,evv$vectors[,n-1],c)
+#computeClusters(A,evv$vectors[,n-1],c)
+#print(evv$values)
+computeClusters(A,evv$vectors[,1:2],c)
 
 
 

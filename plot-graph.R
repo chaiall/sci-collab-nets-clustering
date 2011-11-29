@@ -2,11 +2,17 @@ require(igraph)
 require(Cairo)
 
 gplot <- function(G,layout=layout.spring,add=FALSE,vertex.color="#ff0000",rescale=FALSE,main="") {
+
+    if( vcount(G) < 50 )
 	plot(G, layout=layout, vertex.size=3, vertex.label=V(G)$name,
 		 vertex.color=vertex.color, vertex.frame.color=vertex.color, edge.color="#555555",
 		 vertex.label.dist=0.25, vertex.label.cex=0.6, vertex.label.font=2,
 		 edge.arrow.size=0.3, add=add, rescale=rescale,main=main)
-# 	plot(G, vertex.label=V(G)$name,vertex.size=2,vertex.color="red",vertex.label.color="black",vertex.label.cex=0.6,layout=layout)
+    else
+	plot(G, layout=layout, vertex.size=3, vertex.label=NA,
+		 vertex.color=vertex.color, vertex.frame.color=vertex.color, edge.color="#555555",
+		 vertex.label.dist=0.25, vertex.label.cex=0.6, vertex.label.font=2,
+		 edge.arrow.size=0.3, add=add, rescale=rescale,main=main)
 }
 
 gplot_faint <- function(G,layout=layout.spring,main="") {
