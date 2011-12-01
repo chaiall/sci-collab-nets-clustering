@@ -19,7 +19,7 @@ public class Parser {
         private Person[] persons= new Person[maxAuthorsPerPaper];
         
         private int numberOfPersons = 0;
-        //private int numberOfConferences = 0;
+        private int numberOfConferences = 0;
 
         private boolean insidePerson;
 
@@ -71,7 +71,7 @@ public class Parser {
             	System.out.println("conference");
             	System.out.println(c.getNumberId());
             	conference[numberOfConferences++] = c;
-		return;
+              return;
             }
             if (rawName.equals(recordTag)) {
             	
