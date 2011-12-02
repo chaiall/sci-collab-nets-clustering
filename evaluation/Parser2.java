@@ -7,6 +7,9 @@ import org.xml.sax.helpers.*;
 public class Parser {
    
    private final int maxAuthorsPerPaper = 200;
+   public static int conf_name_to_file = 1;
+   public static int conf_author_to_file = 1;
+   public static String basepath="E:\\data\\";
 
    private class ConfigHandler extends DefaultHandler {
 
@@ -17,9 +20,10 @@ public class Parser {
         private String recordTag;
         private String s_conference; //edit bing
         private Person[] persons= new Person[maxAuthorsPerPaper];
+        //private conference[] conferences= new conference[10];
         
         private int numberOfPersons = 0;
-        private int numberOfConferences = 0;
+        //private int numberOfConferences = 0;
 
         private boolean insidePerson;
 
@@ -70,24 +74,63 @@ public class Parser {
             	c.increment();
             	System.out.println("conference");
             	System.out.println(c.getNumberId());
-            	conference[numberOfConferences++] = c;
-              return;
+            	
+                if(conf_author_to_file==1){
+              	  java.io.FileWriter fw;
+              	  try {
+              		  fw = new  java.io.FileWriter(basepath+"conference_author.txt",true);
+              		  java.io.PrintWriter   pw=new   java.io.PrintWriter(fw);  
+              		  pw.println("conference");
+              		  pw.println(c.getNumberId());
+              		  pw.close(); 
+              		  fw.close();
+              	  } catch (IOException e) {
+              		  // TODO Auto-generated catch block
+              		  e.printStackTrace();
+              	  } 
+                }
+            	//conference[numberOfConferences++] = c;
+            	return;
             }
             if (rawName.equals(recordTag)) {
             	
                 //System.out.println("End of paper");
                 if (numberOfPersons == 0)
                     return;
+                
                 Person pa[] = new Person[numberOfPersons];
                 //System.out.println();
                 System.out.println("author");
                 for (int i=0; i<numberOfPersons; i++) {
                     pa[i] = persons[i];
                     System.out.print(persons[i].getNumberId() + " " );
-                    persons[i] = null;
+                   if(conf_author_to_file!=1)
+                	   persons[i] = null;
                 }
                 System.out.println();
-                System.out.println("-----");
+                System.out.println("-----");//cutting line
+                
+                if(conf_author_to_file==1){
+                	  java.io.FileWriter fw;
+                	  try {
+                		  fw = new  java.io.FileWriter(basepath+"conference_author.txt",true);
+                		  java.io.PrintWriter   pw=new   java.io.PrintWriter(fw);  
+                		  pw.println("author");
+                          for (int i=0; i<numberOfPersons; i++) {
+                              pa[i] = persons[i];
+                              pw.print(persons[i].getNumberId() + " " );
+                          	  persons[i] = null;
+                          }
+                		  pw.println();
+                		  pw.println("-----");
+                		  pw.close(); 
+                		  fw.close();
+                	  } catch (IOException e) {
+                		  // TODO Auto-generated catch block
+                		  e.printStackTrace();
+                	  } 
+                  }
+                
                 Publication p = new Publication(key,pa,s_conference);
                 numberOfPersons = 0;
             }
@@ -186,25 +229,53 @@ public class Parser {
          System.out.println("Error in XML parser configuration: " +
                             e.getMessage());
       }
-      //System.out.println("Number of Persons : " + Person.numberOfPersons());
-      //nameLengthStatistics();
-     // System.out.println("Number of Publications with authors/editors: " + 
-      //                   Publication.getNumberOfPublications());
-      //System.out.println("Maximum number of authors/editors in a publication: " +
-      //                           Publication.getMaxNumberOfAuthors());   
-      //publicationCountStatistics();
-      //Person.enterPublications();
-      //Person.printCoauthorTable();
-      //Person.printNamePartTable();
-      //Person.findSimilarNames();
    }
 
    public static void main(String[] args) {
+	      if(conf_author_to_file==1){
+	    	  java.io.FileWriter fw;
+	    	  try {
+	    		  fw = new  java.io.FileWriter(basepath+"conference_author.txt",false);
+	    		  java.io.PrintWriter   pw=new   java.io.PrintWriter(fw);  
+	    		  pw.close(); 
+	    		  fw.close();
+	    	  } catch (IOException e) {
+	    		  // TODO Auto-generated catch block
+	    		  e.printStackTrace();
+	    	  } 
+	      }
+	   
+	   
       if (args.length < 1) {
          System.out.println("Usage: java Parser [input]");
          System.exit(0);
       }
       Parser p = new Parser(args[0]);
+      System.out.println("finished!");
+      if(conf_name_to_file==1) {
+      try{
+    	   BufferedWriter conf_name_writer = new BufferedWriter(new FileWriter(new File(basepath+"conference-name.txt")));
+    	   
+    	   Iterator j = conference.iterator();
+    	      conference Conference;
+    	      while (j.hasNext()) {
+    	          Conference = (conference) j.next();
+    	          conf_name_writer.write(Conference.getName());
+    	          conf_name_writer.write("\r\n");
+    	      }
+    	      conf_name_writer.close();
+      }catch(Exception e){
+    	  
+      }
+      }             
+      
+      Iterator j = conference.iterator();
+      conference Conference;
+      while (j.hasNext()) {
+          Conference = (conference) j.next();
+          System.out.println(Conference.getName());
+      }
+      
    }
 }
 
